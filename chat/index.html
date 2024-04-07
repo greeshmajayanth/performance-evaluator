@@ -1,0 +1,111 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <style>
+        body {
+            font-family: 'Arial', sans-serif;
+            margin: 0;
+            padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            height: 100vh;
+            background-color: #f4f4f4;
+        }
+
+        h1 {
+            color: #333;
+        }
+
+        #messages {
+            height: 400px;
+            overflow: scroll;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            padding: 10px;
+            width: 900px;
+            box-sizing: border-box;
+        }
+
+        #messageBox {
+            display: block;
+            width: 54%;
+            margin-top: 10px;
+            padding: 10px;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-sizing: border-box;
+        }
+
+        #send {
+            width: 54%;
+            height: 30px;
+            margin-top: 10px;
+            background-color: #4CAF50;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+
+        #send:hover {
+            background-color: #45a049;
+        }
+    </style>
+</head>
+
+<body>
+    <h1>Personal Chat</h1>
+    <pre id="messages"></pre>
+    <input type="text" id="messageBox" placeholder="Type your message here" />
+    <button id="send" title="Send Message">Send Message</button>
+
+    <script>(function () {
+            const sendBtn = document.querySelector('#send');
+            const messages = document.querySelector('#messages');
+            const messageBox = document.querySelector('#messageBox');
+
+            let ws;
+
+            function showMessage(message) {
+                messages.textContent += `\n\n${message}`;
+                messages.scrollTop = messages.scrollHeight;
+                messageBox.value = '';
+            }
+
+            function init() {
+                if (ws) {
+                    ws.onerror = ws.onopen = ws.onclose = null;
+                    ws.close();
+                }
+
+                ws = new WebSocket('ws://localhost:8000');
+                ws.onopen = () => {
+                    console.log('Connection opened!');
+                }
+                ws.onmessage = ({ data }) => showMessage(data);
+                ws.onclose = function () {
+                    ws = null;
+                }
+            }
+
+            sendBtn.onclick = function () {
+                if (!ws) {
+                    showMessage("No WebSocket connection :(");
+                    return;
+                }
+
+                ws.send(messageBox.value);
+                showMessage(messageBox.value);
+            }
+
+            init();
+        })();
+    </script>
+</body>
+
+</html>

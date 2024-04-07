@@ -1,0 +1,78 @@
+/*
+Mr. Arun Sreekanth Bayanagari 1002024369
+Ms. Greeshma Jayanth 1002084507
+Mr. Naga Abhilash Chalamcharla 1002148415
+Mr. Vineeth Kumar Reddy Gadi 1002066253
+MR. Rukesh Sai Kasturi 1002049844
+*/
+
+/* Reset default margin and padding for all elements */
+
+h1 {
+    margin: 0;
+    font-size: 24px;
+}
+
+.container {
+    max-width: 800px;
+    margin: 20px auto;
+    background-color: #fff;
+    padding: 20px;
+    border-radius: 5px;
+    box-shadow: 0 0 5px rgba(0, 0, 0, 0.2);
+}
+
+h2 {
+    font-size: 20px;
+    margin-bottom: 20px;
+}
+
+.analytics {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.metric {
+    flex: 1;
+    padding: 20px;
+    text-align: center;
+    background-color: #f9f9f9;
+    border-radius: 5px;
+    box-shadow: 0 0 3px rgba(0, 0, 0, 0.2);
+}
+
+.metric h3 {
+    font-size: 18px;
+}
+
+.metric p {
+    font-size: 24px;
+    font-weight: bold;
+    margin: 10px 0;
+}
+
+@media (max-width: 768px) {
+
+    .container {
+        padding: 10px;
+    }
+
+    h1 {
+        font-size: 28px;
+    }
+
+    .metric {
+        padding: 10px;
+        text-align: center;
+    }
+    
+    .metric h3 {
+        font-size: 10px;
+    }
+    
+    .metric p {
+        font-size: 18px;
+    }
+
+}
